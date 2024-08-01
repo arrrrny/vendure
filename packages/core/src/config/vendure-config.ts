@@ -57,6 +57,7 @@ import { ErrorHandlerStrategy } from './system/error-handler-strategy';
 import { HealthCheckStrategy } from './system/health-check-strategy';
 import { TaxLineCalculationStrategy } from './tax/tax-line-calculation-strategy';
 import { TaxZoneStrategy } from './tax/tax-zone-strategy';
+import { Permission } from '../../e2e/graphql/generated-e2e-admin-types';
 
 /**
  * @description
@@ -473,6 +474,16 @@ export interface AuthOptions {
      * @default DefaultPasswordValidationStrategy
      */
     passwordValidationStrategy?: PasswordValidationStrategy;
+
+
+    /**
+     * @description
+     * Sets the default permission requirement for all entities. It may
+     * be necessary to set it to `Permission.Authenticated` if you dont want to allow non-authenticated 
+     * access to the app. This might be useful for private only stores.
+
+     */
+    defaultPermissionRequirement?:Permission
 }
 
 /**

@@ -50,6 +50,16 @@ export class AuthGuard implements CanActivate {
             return true;
         }
         const authDisabled = this.configService.authOptions.disableAuth;
+        const defaultPermissionRequirement = this.configService.authOptions.defaultPermissionRequirement;
+        if (
+            !authDisabled &&
+            (
+            (!!defaultPermissionRequirement && !permissions) ||
+            (!!defaultPermissionRequirement && !permissions.includes(defaultPermissionRequirement))
+            )
+        ) {
+            return false;
+        }
         const isPublic = !!permissions && permissions.includes(Permission.Public);
         const hasOwnerPermission = !!permissions && permissions.includes(Permission.Owner);
         let requestContext: RequestContext;
